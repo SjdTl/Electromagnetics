@@ -40,3 +40,4 @@ measurements interpretation.
 | 003         | Green matched load            |
 | 004         | Green shorted                 |
 | 005         | Black wire                    |
+| 006         | Grey                          |
