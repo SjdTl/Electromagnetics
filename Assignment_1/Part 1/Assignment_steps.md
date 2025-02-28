@@ -11,6 +11,8 @@
 	3. Rotate the cavitymeter and record the frequency where a dramatic change in the
 	needle position is observed.
 
+$f=9.81GHz$
+
 2. Measuring guided wavelength:
 	1. Off-tune the cavitywave meter
 	2. Be sure the shorted load is connected
