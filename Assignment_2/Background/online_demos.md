@@ -1,0 +1,3 @@
+- [*Polarization ellipse of electromagnetic wave* - online demo](https://okrasnov.github.io/demos/codes/Module2_1/Module2_1.html)
+- *[Polarization State of Partially-Polarized Waves](https://okrasnov.github.io/demos/codes/ok_1/Module_ok_1.html)* [- online demo](https://okrasnov.github.io/demos/codes/ok_1/Module_ok_1.html) - the combination of the fully-polarized EM wave with random non-polarized noise.
+- [*Polarization Pattern of Polarized Wave* - online demo](https://okrasnov.github.io/demos/codes/ok_2/Module_ok_2.html) - the goal of simulation/visualization within the assignment 2
