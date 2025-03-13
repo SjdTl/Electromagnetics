@@ -10,6 +10,7 @@ lab seesion 2
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.io as spio
+import pandas as pd
 #------------------------------------------------------------------------------
 #                                FUNCTIONS
 #------------------------------------------------------------------------------
@@ -135,7 +136,23 @@ def _todict(matobj):
 
 
 # Example plot, transmit circular polarization + dielectric plate multipath
-grData = loadmat('O:\Running EDUCATION\EE2P1\Session 2.2 Matlab\Group data\group-01.03.mat')
+# ----------------------------------------------
+# Provided code does not work (at least for me)
+# So I this:
+# >grData = loadmat("group-02.02.mat")
+# to the following:
+import os
+dir_path = os.path.dirname(os.path.realpath(__file__))
+import mat73
+
+grData = mat73.loadmat(os.path.join(dir_path, "group-02.02.mat"))
+grDataDF = pd.DataFrame(grData['session2'])
+grDataDF=grDataDF.drop("group", axis=1)
+pd.set_option("display.width", 400)  # Increase the display width
+pd.set_option("display.max_colwidth", None)  # Allow full column width
+print(grDataDF)
+# ------------------------------------------------
+
 f = grData['session2']['task2']['frequency']
 R = grData['session2']['task2']['antennas_distance']
 Er = grData['session2']['task2']['dielectric_prermittivity']
