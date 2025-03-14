@@ -103,41 +103,24 @@ def saveplot(name):
     file_path = os.path.join(dir_path, "Out", f"{name}.svg")
     plt.savefig(file_path, transparent=True)
 
+def angular_patterns(f, R, H, Er, plot = False, name_plot = "angular_patterns"):
+    pt = PolarPhasor(0, np.pi/4)    # transmit circular pol
 
-# def loadmat(filename):
-#     '''
-#     this function should be called instead of direct spio.loadmat
-#     as it cures the problem of not properly recovering python dictionaries
-#     from mat files. It calls the function check keys to cure all entries
-#     which are still mat-objects
-#     '''
-#     data = spio.loadmat(filename, struct_as_record=False, squeeze_me=True)
-#     return _check_keys(data)
+    fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})
+    for h in H:
+        pr = MultipathRxPolarState(pt, f, R, h, Er)
+        th, rho = PolarPattern(pr)
+        ax.plot(th, np.abs(rho)/np.max(np.abs(rho)),label=round(h,2))
 
-# def _check_keys(dict):
-#     '''
-#     checks if entries in dictionary are mat-objects. If yes
-#     todict is called to change them to nested dictionaries
-#     '''
-#     for key in dict:
-#         if isinstance(dict[key], spio.matlab.mio5_params.mat_struct):
-#             dict[key] = _todict(dict[key])
-#     return dict        
+    
+    ax.set_rlabel_position(-22.5)  # Move radial labels away from plotted line
+    ax.grid(True)
 
-# def _todict(matobj):
-#     '''
-#     A recursive function which constructs from matobjects nested dictionaries
-#     '''
-#     dict = {}
-#     for strg in matobj._fieldnames:
-#         elem = matobj.__dict__[strg]
-#         if isinstance(elem, spio.matlab.mio5_params.mat_struct):
-#             dict[strg] = _todict(elem)
-#         else:
-#             dict[strg] = elem
-#     return dict
-
-
+    ax.set_title("Polarization Pattern", va='bottom')
+    plt.legend(title="H",loc='best', fontsize=6, fancybox=True)
+    saveplot(f"{name_plot}")
+    if plot:
+        plt.show()
 #-------------------------  END OF FUNCTIONS ----------------------------------
 
 
@@ -164,24 +147,9 @@ R = grData['session2']['task2']['antennas_distance']
 Er = grData['session2']['task2']['dielectric_prermittivity']
 H = grData['session2']['task2']['reflection_height']
 
-pt = PolarPhasor(0, np.pi/4)    # transmit circular pol
-
-fig, ax = plt.subplots(subplot_kw={'projection': 'polar'})
-for h in H:
-    pr = MultipathRxPolarState(pt, f, R, h, Er)
-    th, rho = PolarPattern(pr)
-    ax.plot(th, np.abs(rho)/np.max(np.abs(rho)),label=round(h,2))
-
-
-
-ax.set_rlabel_position(-22.5)  # Move radial labels away from plotted line
-ax.grid(True)
-
-ax.set_title("Polarization Pattern", va='bottom')
-plt.legend(title="H",loc='best', fontsize=6, fancybox=True)
-saveplot("Polarization_pattern")
-plt.show()
-# PlotPolarPattern(pt)
+angular_patterns(f, R, H, Er, plot=False, name_plot = "dielectric_reflection")
+angular_patterns(f, R, H, 1e9, plot=False, name_plot = "metallic_reflection")
+angular_patterns(f, R, H, 1e-9, plot=False, name_plot = "free_space")
 
 ## Fresnel / Brewster
 ## glass example (n2 = 1.5)
