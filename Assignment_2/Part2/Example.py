@@ -187,8 +187,17 @@ plt.show()
 ## glass example (n2 = 1.5)
 th_i = np.linspace(0, np.pi/2, 91)
 Gh, Gv = FresnelCoeff(1, 1.5**2, th_i)
+
+#find the Brewster angle
+th_i_min = th_i[np.argmin(np.abs(Gv))]
+print(f"The Brewster angle is {th_i_min*180/np.pi} degrees")
+
 plt.figure()
 plt.plot(180*th_i/np.pi,np.abs(Gh))
 plt.plot(180*th_i/np.pi,np.abs(Gv))
+plt.title('Fresnel reflection coefficients')
+plt.xlabel('Incident angle [deg]')
+plt.ylabel('Reflection coefficient')
+plt.legend(['Horizontal Fresnel Coef.','Vertical Fresnel Coef.'])
 saveplot("Brewster")
 plt.show()
