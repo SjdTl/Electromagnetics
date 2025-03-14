@@ -97,6 +97,12 @@ def PolarPattern(p):
     V = Et_h*np.cos(x)+Et_v*np.sin(x)
     return x, V
 
+def saveplot(name):
+    import os as os
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    file_path = os.path.join(dir_path, "Out", f"{name}.svg")
+    plt.savefig(file_path, transparent=True)
+
 
 # def loadmat(filename):
 #     '''
@@ -173,14 +179,16 @@ ax.grid(True)
 
 ax.set_title("Polarization Pattern", va='bottom')
 plt.legend(title="H",loc='best', fontsize=6, fancybox=True)
+saveplot("Polarization_pattern")
 plt.show()
 # PlotPolarPattern(pt)
 
 ## Fresnel / Brewster
 ## glass example (n2 = 1.5)
-# th_i = np.linspace(0, np.pi/2, 91)
-# Gh, Gv = FresnelCoeff(1, 1.5**2, th_i)
-# plt.figure()
-# plt.plot(180*th_i/np.pi,np.abs(Gh))
-# plt.plot(180*th_i/np.pi,np.abs(Gv))
-# plt.show()
+th_i = np.linspace(0, np.pi/2, 91)
+Gh, Gv = FresnelCoeff(1, 1.5**2, th_i)
+plt.figure()
+plt.plot(180*th_i/np.pi,np.abs(Gh))
+plt.plot(180*th_i/np.pi,np.abs(Gv))
+saveplot("Brewster?")
+plt.show()
