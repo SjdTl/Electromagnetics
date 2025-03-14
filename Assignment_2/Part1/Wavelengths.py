@@ -6,6 +6,7 @@ import pandas as pd
 import os as os
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.stats import t
 
 import scienceplots
 plt.style.use(['science','ieee'])
@@ -34,7 +35,14 @@ wavelengths.append(getAssignment(2))
 names = ["obstr", "phase"] 
 txt = ""
 for i in range(0,2):
-    txt = txt + (f"$v_{{{names[i]}}}={(np.round(np.mean(wavelengths[i] * f * 1e-10), 2))} \\pm {np.round(np.std(wavelengths[i] * f * 1e-10),2)} \\cdot 10^{8} \\;[\\text{{m/s}}]$ with $n={wavelengths[i].size}$ measurements \n")
+    v = wavelengths[i] * f * 1e-10
+    mean_v = (np.round(np.mean(v), 2))
+    std_v = np.std(v)
+    confidence = 0.95 # 95% confidence interval
+    tstar = t.ppf((1 + confidence) / 2, v.size-1)
+    ME =  np.round(tstar * (std_v / np.sqrt(v.size)), 2)
+    
+    txt = txt + (f"$v_{{{names[i]}}}={mean_v} \\pm {ME} \\cdot 10^{8} \\;[\\text{{m/s}}]$\n")
 print(txt)
 
 fig, ax = plt.subplots()
@@ -44,6 +52,7 @@ ax.set_xticklabels([rf"$v_{{\text{{obstr}}}} = {np.round(np.mean(wavelengths[0])
 
 f = open(file=os.path.join(dir_path, "Out", f"Velocities_ass1n2.md"), mode='w')
 f.write(txt)
+f.write(rf"\n Is the 95% confidence interval assuming a normal distribution")
 f.close()
 
 fig_out = os.path.join(dir_path, "Out", f"Wavelengths_ass1n2.svg")
