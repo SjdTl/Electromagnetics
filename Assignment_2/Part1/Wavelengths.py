@@ -38,7 +38,7 @@ for i in range(0,2):
 print(txt)
 
 fig, ax = plt.subplots()
-ax.boxplot(wavelengths, showmeans = True, meanline=True)
+ax.boxplot(wavelengths, showmeans = True, meanline=True, widths = 0.5)
 ax.set_xticklabels([rf"$v_{{\text{{obstr}}}} = {np.round(np.mean(wavelengths[0]),2)}\;[\text{{cm}}], n = {wavelengths[0].size}$",
                     rf"$v_{{\text{{phase}}}} = {np.round(np.mean(wavelengths[1]),2)}\;[\text{{cm}}], n = {wavelengths[1].size}$"])
 
@@ -49,5 +49,6 @@ f.close()
 fig_out = os.path.join(dir_path, "Out", f"Wavelengths_ass1n2.svg")
 ax.set_title("Wavelengths using obstruction and phase measurements")
 ax.set_ylabel("Lenght [cm]")
+plt.tight_layout()
 plt.savefig(fig_out, transparent=True)
 # plt.show()
