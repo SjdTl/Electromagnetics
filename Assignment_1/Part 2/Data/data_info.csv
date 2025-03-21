@@ -1,8 +1,8 @@
-Measurement_name,description
-ALL0000,Long 10m cable
-ALL0001,No cable
-ALL0002,Open end
-ALL0003,Matched_Green
-ALL0004,Shorted_Green
+Measurement_name,Description
+ALL0000,LongCable
+ALL0001,NoCable
+ALL0002,OpenEnd
+ALL0003,MatchedGreen
+ALL0004,ShortedGreen
 ALL0005,Black
 ALL0006,Grey
