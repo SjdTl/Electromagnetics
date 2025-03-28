@@ -9,6 +9,8 @@ lab seesion 2
 """
 import numpy as np
 import matplotlib.pyplot as plt
+import scienceplots
+plt.style.use(['science','ieee'])
 import scipy.io as spio
 import pandas as pd
 #------------------------------------------------------------------------------
