@@ -146,9 +146,9 @@ R = grData['session2']['task2']['antennas_distance']
 Er = grData['session2']['task2']['dielectric_prermittivity']
 H = grData['session2']['task2']['reflection_height']
 
-angular_patterns(0,0,f, R, H, Er, plot=False, name_plot = "dielectric_reflection_vertical")
-angular_patterns(0,0,f, R, H, 1e20, plot=False, name_plot = "metallic_reflection_vertical")
-angular_patterns(0,0,f, R, H, 1, plot=False, name_plot = "free_space_vertical")
+angular_patterns(np.pi/2,0,f, R, H, Er, plot=False, name_plot =   "dielectric_reflection_vertical")
+angular_patterns(np.pi/2,0,f, R, H, 1e5, plot=False, name_plot = "metallic_reflection_vertical")
+angular_patterns(np.pi/2,0,f, R, H, 1, plot=False, name_plot =    "free_space_vertical")
 
 ## Fresnel / Brewster
 ## glass example (n2 = 1.5)
